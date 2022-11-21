@@ -14,11 +14,9 @@ public class PlayerController : MonoBehaviour
 
     //Health
     public int health
-    {
-        get;
-        set;
-    } = 3;
+     = 3;
     [SerializeField] int maxHealth = 3;
+    public int MaxHP { get { return maxHealth; } }
     private Vector3 Respawn;
     private bool hasCheckPoint = false;
 
@@ -110,6 +108,10 @@ public class PlayerController : MonoBehaviour
                 shoot(Vector2.down);
             }
 
+            else if (Input.GetKey(KeyCode.Mouse0))
+            {
+                shoot(mousePos);
+            }
             //Checking ammo
             if (ammo <= 0)
             {
