@@ -195,7 +195,7 @@ public class PlayerController : MonoBehaviour
     private void shoot(Vector2 direction)
     {
         GameObject b = Instantiate(projectile, transform.position, Quaternion.identity);
-        Physics2D.IgnoreCollision(GetComponent<CircleCollider2D>(), b.GetComponent<CapsuleCollider2D>());
+        Physics2D.IgnoreCollision(GetComponent<PolygonCollider2D>(), b.GetComponent<CapsuleCollider2D>());
 
         if (direction == Vector2.left || direction == Vector2.right)
             b.GetComponent<Rigidbody2D>().rotation = 90;
