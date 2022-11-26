@@ -201,13 +201,19 @@ public class PlayerController : MonoBehaviour
 
         if (direction == Vector2.left || direction == Vector2.right)
             b.GetComponent<Rigidbody2D>().rotation = 90;
-
+        /*else if (direction == mousePos)
+        {
+            Vector3 aimDirection = (mousePos - transform.position).normalized;
+            float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
+            b.GetComponent<Rigidbody2D>().rotation == angle;
+        }*/
         b.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed);
         Destroy(b, bulletLifetime);
         canShoot = false;
         ammo--;
     }
 
+    //Turning Player sprite to the mouse
     private void FixedUpdate()
     {
         Vector2 lookDir = mousePos - myRB.position;
