@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
     //Getting the Rigidbody, Projectile
     public GameObject projectile;
     private Rigidbody2D myRB;
+    private SpriteRenderer mySprite;
     //public GameObject Locked_Doors;
     public Camera cam;
 
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
     {
         //Showing that myRB is the players Rigidbody
         myRB = GetComponent<Rigidbody2D>();
+        mySprite = GetComponent<SpriteRenderer>();
         //If the MaxHealth is adjusted, then the Health will also be adjusted
         health = maxHealth;
     }
@@ -66,6 +68,15 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        if(mousePos.x < 0)
+        {
+            mySprite.flipX = true;
+        }
+        if (mousePos.x > 0)
+        {
+            mySprite.flipX = false;
+        }
+
 
         //Respawn system
         if (health <= 0)
@@ -195,10 +206,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //Turning Player sprite towrds the mouse
+   /*
     private void FixedUpdate()
     {
         Vector2 lookDir = mousePos - myRB.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         myRB.rotation = angle;
     }
+    */
 }
