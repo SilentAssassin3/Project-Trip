@@ -88,30 +88,10 @@ public class PlayerController : MonoBehaviour
         //Shooting system
         if (hasAmmo && canShoot)
         {
-            if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.Mouse0))
             {
-                shoot(Vector2.right);
-            }
-
-            else if (Input.GetKey(KeyCode.LeftArrow))
-            {
-                shoot(Vector2.left);
-            }
-
-            else if (Input.GetKey(KeyCode.UpArrow))
-            {
-                shoot(Vector2.up);
-            }
-
-            else if (Input.GetKey(KeyCode.DownArrow))
-            {
-                shoot(Vector2.down);
-            }
-
-            else if (Input.GetKey(KeyCode.Mouse0))
-            {
-                shoot(mousePos);
-            }
+            shoot(mousePos);
+        }
             //Checking ammo
             if (ammo <= 0)
             {
