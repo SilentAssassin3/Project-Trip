@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
 
     public int ammoGain = 20;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -184,6 +185,11 @@ public class PlayerController : MonoBehaviour
 
     }
 
+
+
+
+
+    
     //When the Player shoots this happens
     private void shoot(Vector2 direction)
     {
