@@ -104,13 +104,9 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-<<<<<<< Updated upstream
             //shoot(mousePos);
-        }
-=======
-                shoot(mousePos);
             }
->>>>>>> Stashed changes
+
             //Checking ammo
             if (ammo <= 0)
             {
