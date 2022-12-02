@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     //Movement
     public float movementSpeed = 7.5f;
     public float speedIncrease = 12.5f;
+    public float moveSpeed = 5f;//ian
 
     //Shooting Variables
     public bool canShoot = true;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
     public int ammoGain = 20;
 
+    Vector2 movement;//ian
 
     // Start is called before the first frame update
     void Start()
@@ -69,7 +71,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if(mousePos.x < 0)
+        if (mousePos.x < 0)
         {
             mySprite.flipX = true;
         }
@@ -100,10 +102,11 @@ public class PlayerController : MonoBehaviour
         //Shooting system
         if (hasAmmo && canShoot)
         {
-        if (Input.GetKey(KeyCode.Mouse0))
+            if (Input.GetKey(KeyCode.Mouse0))
             {
             //shoot(mousePos);
-        }
+            }
+
             //Checking ammo
             if (ammo <= 0)
             {
@@ -177,19 +180,28 @@ public class PlayerController : MonoBehaviour
         }
 
         //Movement system
+        /*
         tempVelocity.x = Input.GetAxisRaw("Horizontal") * movementSpeed;
         tempVelocity.y = Input.GetAxisRaw("Vertical") * movementSpeed;
 
         //Making sure that the player keeps moving
         myRB.velocity = tempVelocity;
+        */
+        
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+
+
+    
     }
 
 
 
 
 
-    
+    /*
     //When the Player shoots this happens
     /*
     private void shoot(Vector2 direction)
@@ -213,12 +225,15 @@ public class PlayerController : MonoBehaviour
     }
     */
     //Turning Player sprite towrds the mouse
-   /*
-    private void FixedUpdate()
+ 
+    //ians stuff
+    void FixedUpdate()
     {
+        myRB.MovePosition(myRB.position + movement * moveSpeed * Time.fixedDeltaTime);
+
         Vector2 lookDir = mousePos - myRB.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         myRB.rotation = angle;
+
     }
-    */
 }
