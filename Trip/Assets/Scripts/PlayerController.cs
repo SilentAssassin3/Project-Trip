@@ -102,7 +102,7 @@ public class PlayerController : MonoBehaviour
         {
         if (Input.GetKey(KeyCode.Mouse0))
             {
-            shoot(mousePos);
+            //shoot(mousePos);
         }
             //Checking ammo
             if (ammo <= 0)
@@ -191,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
     
     //When the Player shoots this happens
+    /*
     private void shoot(Vector2 direction)
     {
         GameObject b = Instantiate(projectile, transform.position, Quaternion.identity);
@@ -210,7 +211,7 @@ public class PlayerController : MonoBehaviour
         canShoot = false;
         ammo--;
     }
-
+    */
     //Turning Player sprite towrds the mouse
    /*
     private void FixedUpdate()
