@@ -18,7 +18,11 @@ public class DayTracker : MonoBehaviour
     float remainingPercentage;
     float almostOverNum;
     float overNum;
-
+    int overAllNum;
+    float almostEnemieNum;
+    int enemieNum;
+    float almostRunnerNum;
+    int runnerNum;
 
     // Start is called before the first frame update
     void Start()
@@ -52,8 +56,19 @@ public class DayTracker : MonoBehaviour
                     percentageNum = dividedNum / 100;
                     remainingPercentage = 1 - percentageNum;
 
+                    //overallnum is the overall number of npc's that spawn
+                    almostOverNum = exponentedDay * 0.2f;
+                    overNum = exponentedDay + almostOverNum;
+                    overAllNum = (int)Mathf.Ceil(overNum);
 
-                     almostOverNum = exponentedDay * 0.2f;
+                    //EnemieNum is the number of attacking npc's that spawn
+                    almostEnemieNum = overAllNum* percentageNum;
+                    enemieNum = (int)Mathf.Ceil(almostEnemieNum);
+
+                    //RunnerNum is the number of non attacking npc's that spawn
+                    almostRunnerNum = overAllNum * remainingPercentage;
+                    runnerNum = (int)Mathf.Ceil(almostRunnerNum);
+
 
                     //this will do i^dayNum
                     //eneSpawnNum = Math.Pow(i, dayNum);
