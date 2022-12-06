@@ -36,8 +36,8 @@ public class DayTracker : MonoBehaviour
 
         if (time == true)
         {
-            //reset health
-            //Health = maxhealth;
+            //reseting health
+            Player.health = Player.MaxHP;
 
             if (end == true)
             {
@@ -51,6 +51,7 @@ public class DayTracker : MonoBehaviour
 
                 while ( waveNum  < dayNum)
                 {
+                    //percentageNum is the percentage of enemies, ramainingPercentage is the percentage of the non attacking npc's
                     exponentedDay = Mathf.Pow(dayNum, 2);
                     dividedNum = exponentedDay / 2;
                     percentageNum = dividedNum / 100;
@@ -69,26 +70,38 @@ public class DayTracker : MonoBehaviour
                     almostRunnerNum = overAllNum * remainingPercentage;
                     runnerNum = (int)Mathf.Ceil(almostRunnerNum);
 
+                    //Make a condition to know when the Player is in the forest so that the for loop could work
 
-                    //this will do i^dayNum
-                    //eneSpawnNum = Math.Pow(i, dayNum);
+                    //If we are adding more than one enemy type then make a thing that randomly makes an amount of them different types
+                    for (int i = 0; i < enemieNum; i++)
+                    {
+                        //Make a Enemy PreFab!!! So that this can work
+                        var ePosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
+                        //Instantiate(EnemyPreFabName, eposition, Quaternion.identity);
+                    }
 
-                    //take ⅔ of eneSpawnNum
-                    //make that 
-                    //put enemies in random places on the map
-                    //GameObject e = Instantiate(enemy, transform.position, Quaternion.identity);
+                    //This is only for one non attacking npc, if we want more we have to make a thing that randomly makes an amount of them differenty types of non attacking npc's
+                    for (int j = 0; j < runnerNum; j++)
+                    {
+                        var rPosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
+                        //Instantiate(RunnerPreFabName, rPosition, Quaternion.identity);
+                    }
+
                     waveNum++;
                 }
                 /*
-                 9/2 9*2
-                 /=
-                 *=
-                 +=
-                 -=
-                 Mathf.Pow for exponents
-                 Mathf.Floor for rounding down
-                 Mathf.Ceil For rounding up
-                 */
+
+                These are just notes about how to do math in c#
+
+                9/2 9*2
+                /=
+                *=
+                +=
+                -=
+                Mathf.Pow for exponents
+                Mathf.Floor for rounding down
+                Mathf.Ceil For rounding up
+                */
             }
 
         }
