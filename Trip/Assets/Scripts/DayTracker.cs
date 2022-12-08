@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class DayTracker : MonoBehaviour
 {
     public bool end = false;
@@ -10,6 +10,8 @@ public class DayTracker : MonoBehaviour
     private int dayNum = 1;
     public float eneSpawnNum;
     PlayerController Player;
+
+    Scene Scene;
 
     //Variables for calculating the difficulty increasing
     float exponentedDay;
@@ -33,6 +35,7 @@ public class DayTracker : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Scene = SceneManager.GetActiveScene();
 
         if (time == true)
         {
@@ -71,20 +74,22 @@ public class DayTracker : MonoBehaviour
                     runnerNum = (int)Mathf.Ceil(almostRunnerNum);
 
                     //Make a condition to know when the Player is in the forest so that the for loop could work
-
-                    //If we are adding more than one enemy type then make a thing that randomly makes an amount of them different types
-                    for (int i = 0; i < enemieNum; i++)
+                    if (Scene == SceneManager.GetSceneByBuildIndex(2))
                     {
-                        //Make a Enemy PreFab!!! So that this can work
-                        var ePosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
-                        //Instantiate(EnemyPreFabName, eposition, Quaternion.identity);
-                    }
+                        //If we are adding more than one enemy type then make a thing that randomly makes an amount of them different types
+                        for (int i = 0; i < enemieNum; i++)
+                        {
+                            //Make a Enemy PreFab!!! So that this can work
+                            var ePosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
+                            //Instantiate(EnemyPreFabName, eposition, Quaternion.identity);
+                        }
 
-                    //This is only for one non attacking npc, if we want more we have to make a thing that randomly makes an amount of them differenty types of non attacking npc's
-                    for (int j = 0; j < runnerNum; j++)
-                    {
-                        var rPosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
-                        //Instantiate(RunnerPreFabName, rPosition, Quaternion.identity);
+                        //This is only for one non attacking npc, if we want more we have to make a thing that randomly makes an amount of them differenty types of non attacking npc's
+                        for (int j = 0; j < runnerNum; j++)
+                        {
+                            var rPosition = new Vector2(Random.Range(0f, 100f), Random.Range(0f, 100f));
+                            //Instantiate(RunnerPreFabName, rPosition, Quaternion.identity);
+                        }
                     }
 
                     waveNum++;
