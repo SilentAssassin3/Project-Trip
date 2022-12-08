@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Mouse0))
             {
-            //shoot(mousePos);
+            shoot((new Vector2(transform.position.x, transform.position.y)  - mousePos).normalized);
             }
 
             //Checking ammo
@@ -201,29 +201,20 @@ public class PlayerController : MonoBehaviour
 
 
 
-    /*
+    
     //When the Player shoots this happens
-    /*
+    
     private void shoot(Vector2 direction)
     {
-        GameObject b = Instantiate(projectile, transform.position, Quaternion.identity);
-        Physics2D.IgnoreCollision(GetComponent<PolygonCollider2D>(), b.GetComponent<CapsuleCollider2D>());
-        
-        //Changing the direction of the projectile to the correct direction when shot
-        if (direction == Vector2.left || direction == Vector2.right)
-            b.GetComponent<Rigidbody2D>().rotation = 90;
-        else if (direction == mousePos)
-        {
-            Vector2 aimDirection = (mousePos - (Vector2)transform.position).normalized;
-            float aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-            b.GetComponent<Rigidbody2D>().rotation = aimAngle += 90;
-        }
-        b.GetComponent<Rigidbody2D>().AddForce(direction * bulletSpeed);
+        GameObject b = Instantiate(projectile, transform.position, transform.rotation);
+        Physics2D.IgnoreCollision(GetComponent<Collider2D>(), b.GetComponent<Collider2D>());
+        b.GetComponent<Rigidbody2D>().velocity = direction * -bulletSpeed;
         Destroy(b, bulletLifetime);
-        canShoot = false;
         ammo--;
+        canShoot = false;
     }
-    */
+
+    
     //Turning Player sprite towrds the mouse
  
     //ians stuff
