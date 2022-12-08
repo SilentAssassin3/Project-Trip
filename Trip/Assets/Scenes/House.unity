@@ -362,6 +362,7 @@ GameObject:
   - component: {fileID: 921312766}
   - component: {fileID: 921312765}
   - component: {fileID: 921312767}
+  - component: {fileID: 921312768}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -445,14 +446,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 921312764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f34a7af50da5efc47b1f142a4c37fafe, type: 3}
+  m_Script: {fileID: 11500000, guid: bc59a05cf5e4b0b49a1624700be383b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 0}
-  Locked_Doors: {fileID: 0}
+  projectile: {fileID: 8761494628129290744, guid: cc78fc8f66dcd4c40a2ec1fe611d5603, type: 3}
+  cam: {fileID: 519420031}
   health: 3
+  maxHealth: 3
   movementSpeed: 7.5
   speedIncrease: 12.5
+  moveSpeed: 5
   canShoot: 1
   bulletSpeed: 1000
   fireRate: 1
@@ -473,3 +476,24 @@ MonoBehaviour:
   fireRateBoostCooldown: 5
   fireRateAmplifer: 0.5
   ammoGain: 20
+--- !u!50 &921312768
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 921312764}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
