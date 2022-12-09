@@ -260,4 +260,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Money")
+        {
+            Destroy(collision.gameObject);
+            //MONEY++;
+        }
+
+        if (collision.gameObject.tag == "Ammo")
+        {
+            Destroy(collision.gameObject);
+            ammoOnYou += ammoGain;
+        }
+    }
+
 }
