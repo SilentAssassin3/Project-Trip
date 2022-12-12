@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyHealthBar : MonoBehaviour
 {
+    public GameObject eHealthBar;
     private Image ehealthBar;
     EnemyController Enemy;
 
@@ -13,11 +14,17 @@ public class EnemyHealthBar : MonoBehaviour
     {
         ehealthBar = GetComponent<Image>();
         Enemy = FindObjectOfType<EnemyController>();
+        eHealthBar.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
+        if (Enemy.health < Enemy.maxHealth)
+        {
+            eHealthBar.SetActive(true);
+            ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
+        }
+
     }
 }
