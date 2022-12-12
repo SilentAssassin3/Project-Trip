@@ -8,6 +8,10 @@ public class AmmoUI : MonoBehaviour
     private Image Ammo;
     PlayerController Player;
 
+    [SerializeField] GameObject bulletPrefab;
+    [SerializeField] Transform firePoint;
+    [SerializeField] float fireForce = 20f;
+
     // Start is called before the first frame update
     void Start()
     {
