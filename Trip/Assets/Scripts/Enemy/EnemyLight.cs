@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class EnemyLight : MonoBehaviour
 {
-    private Rigidbody2D lightRB;
 
+    //Lights
     public GameObject eSpotScan;
     public GameObject eSpotAttack;
 
+    EnemyHealthBar eBar;
+    public Image ealertBar;
     // Start is called before the first frame update
     void Start()
     {
-        lightRB = GetComponent<Rigidbody2D>();
+        eBar = FindObjectOfType<EnemyHealthBar>();
+        eBar.ealertBar = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -33,8 +36,34 @@ public class EnemyLight : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            eSpotScan.SetActive(false);
-            eSpotAttack.SetActive(true);
+            eBar.playerClose = true;
+            while (eBar.playerClose)
+            {
+                eBar.eAlertBar.SetActive(true);
+                while (eBar.alertCoolDown < eBar.alertTime)
+                {
+                    eBar.alertCoolDown += Time.deltaTime;
+                    ealertBar.fillAmount = eBar.alertCoolDown / eBar.alertTime;
+                }
+            }
+            if (eBar.alertCoolDown >= eBar.alertTime)
+            {
+                eBar.alertCoolDown = 0;
+                eSpotScan.SetActive(false);
+                eSpotAttack.SetActive(true);
+                eBar.eAlertBar.SetActive(false);
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            if (eBar.alertCoolDown > 0 && eBar.playerClose)
+            {
+                eBar.playerClose = false;
+            }
         }
     }
 

@@ -9,12 +9,22 @@ public class EnemyHealthBar : MonoBehaviour
     private Image ehealthBar;
     EnemyController Enemy;
 
+    //Alert Bar
+    public GameObject eAlertBar;
+    public Image ealertBar;
+    public float alertTime = 0.5f;
+    public float alertCoolDown = 0;
+    public bool playerClose = false;
+
     // Start is called before the first frame update
     void Start()
     {
         ehealthBar = GetComponent<Image>();
         Enemy = FindObjectOfType<EnemyController>();
         eHealthBar.SetActive(false);
+
+        ealertBar = GetComponent<Image>();
+        eAlertBar.SetActive(false);
     }
 
     // Update is called once per frame
