@@ -5,9 +5,12 @@ using UnityEngine.UI;
 
 public class EnemyHealthBar : MonoBehaviour
 {
+    //EnemyLight eLight;
+    EnemyController Enemy;
+
+    //Health Bar
     public GameObject eHealthBar;
     private Image ehealthBar;
-    EnemyController Enemy;
 
     //Alert Bar
     public GameObject eAlertBar;
@@ -19,8 +22,10 @@ public class EnemyHealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ehealthBar = GetComponent<Image>();
+        //eLight = FindObjectOfType<EnemyLight>();
         Enemy = FindObjectOfType<EnemyController>();
+
+        ehealthBar = GetComponent<Image>();
         eHealthBar.SetActive(false);
 
         ealertBar = GetComponent<Image>();
@@ -37,4 +42,5 @@ public class EnemyHealthBar : MonoBehaviour
         }
 
     }
+    
 }
