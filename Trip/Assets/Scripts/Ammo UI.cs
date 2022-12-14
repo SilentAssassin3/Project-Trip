@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
-public class AmmoUI : MonoBehaviour
+public class AmmoUI: MonoBehaviour
 {
     private Image Ammo;
     PlayerController Player;
+
+    //[SerializeField] GameObject bulletPrefab;
+    //[SerializeField] Transform firePoint;
+    //[SerializeField] float fireForce = 20f;
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,7 @@ public class AmmoUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ammo.fillAmount = (float)Player.ammo / (float)Player.maxAmmo;
+       // Ammo.fillAmount = (float)Player.ammo / (float)Player.maxAmmo;
     }
 }
 
