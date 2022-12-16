@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+
 
 public class MoneyUIScript : MonoBehaviour
 {
-    Text text;
+    TextElement text;
     public static int MoneyAmount;
 
     // Start is called before the first frame update
     void Start()
     {
-        text = GetComponent<Text>();
+        text = GetComponent<TextElement>();
     }
 
     // Update is called once per frame

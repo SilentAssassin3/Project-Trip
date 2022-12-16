@@ -12,6 +12,7 @@ public class Upgrades : MonoBehaviour
      iA = intitial amount
      gR = growth rate
     */
+
     float eG;
     float iA;
     float gR;
@@ -30,10 +31,13 @@ public class Upgrades : MonoBehaviour
 
     public void Fire_Rate()
     {
-        /*
-         iA = 1
+        
+         iA = 1;
          gR = 0.2f;
-         */
+        Exponential_Grow();
+
+        MoneyUIScript.MoneyAmount -= (int)eG;
+
         Player.fireRate -= (Player.fireRate * 0.2f);
     }
 

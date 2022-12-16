@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class EnemyHealthBar : MonoBehaviour
 {
@@ -10,8 +10,8 @@ public class EnemyHealthBar : MonoBehaviour
     EnemyController Enemy;
 
     //Alert Bar
-    public GameObject eAlertBar;
-    public Image ealertBar;
+    //public GameObject eAlertBar;
+   // public Image ealertBar;
     public float alertTime = 0.5f;
     public float alertCoolDown = 0;
     public bool playerClose = false;
@@ -23,8 +23,8 @@ public class EnemyHealthBar : MonoBehaviour
         Enemy = FindObjectOfType<EnemyController>();
         eHealthBar.SetActive(false);
 
-        ealertBar = GetComponent<Image>();
-        eAlertBar.SetActive(false);
+        //ealertBar = GetComponent<Image>();
+        //eAlertBar.SetActive(false);
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class EnemyHealthBar : MonoBehaviour
         if (Enemy.health < Enemy.maxHealth)
         {
             eHealthBar.SetActive(true);
-            ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
+            //ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
         }
 
     }
