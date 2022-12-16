@@ -11,6 +11,10 @@ public class EnemyController : MonoBehaviour
 
     public bool deadAmmo = false;
 
+    public bool hit = false;
+    public float hitTimer = 0.1f;
+    public float hitCoolDown = 0;
+
     public int health = 2;
     public int maxHealth = 2;
 
@@ -35,6 +39,18 @@ public class EnemyController : MonoBehaviour
 
             Destroy(gameObject);
         }
+
+        if (hit)
+        {
+            while (hitCoolDown < hitTimer)
+            {
+                hitCoolDown += Time.deltaTime;
+            }
+        }
+        if (hitCoolDown >= hitTimer)
+        {
+            hitCoolDown = 0;
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -43,6 +59,7 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             health--;
+            hit = true;
         }
 
 

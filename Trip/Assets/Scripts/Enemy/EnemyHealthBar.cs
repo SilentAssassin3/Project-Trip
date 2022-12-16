@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
-
+//Becuase of Time, and problems with the not being able to use UnityEngine.UI NameSpace this is not going to be used
 public class EnemyHealthBar : MonoBehaviour
 {
-    public GameObject eHealthBar;
-    private Image ehealthBar;
+    //public GameObject eHealthBar;
+    //public Image ehealthBar;
     EnemyController Enemy;
 
     //Alert Bar
@@ -19,9 +19,9 @@ public class EnemyHealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ehealthBar = GetComponent<Image>();
+        //ehealthBar = GetComponent<Image>();
         Enemy = FindObjectOfType<EnemyController>();
-        eHealthBar.SetActive(false);
+       // eHealthBar.SetActive(false);
 
         //ealertBar = GetComponent<Image>();
         //eAlertBar.SetActive(false);
@@ -32,7 +32,7 @@ public class EnemyHealthBar : MonoBehaviour
     {
         if (Enemy.health < Enemy.maxHealth)
         {
-            eHealthBar.SetActive(true);
+           // eHealthBar.SetActive(true);
             //ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
         }
 

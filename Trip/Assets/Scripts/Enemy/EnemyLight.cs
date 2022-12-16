@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 public class EnemyLight : MonoBehaviour
 {
 
@@ -10,12 +10,12 @@ public class EnemyLight : MonoBehaviour
     public GameObject eSpotAttack;
 
     EnemyHealthBar eBar;
-    public Image ealertBar;
+   // public Image ealertBar;
     // Start is called before the first frame update
     void Start()
     {
         eBar = FindObjectOfType<EnemyHealthBar>();
-        eBar.ealertBar = GetComponent<Image>();
+        //eBar.ealertBar = GetComponent<Image>();
     }
 
     // Update is called once per frame
@@ -39,11 +39,11 @@ public class EnemyLight : MonoBehaviour
             eBar.playerClose = true;
             while (eBar.playerClose)
             {
-                eBar.eAlertBar.SetActive(true);
+                //eBar.eAlertBar.SetActive(true);
                 while (eBar.alertCoolDown < eBar.alertTime)
                 {
                     eBar.alertCoolDown += Time.deltaTime;
-                    ealertBar.fillAmount = eBar.alertCoolDown / eBar.alertTime;
+                    //ealertBar.fillAmount = eBar.alertCoolDown / eBar.alertTime;
                 }
             }
             if (eBar.alertCoolDown >= eBar.alertTime)
@@ -51,7 +51,7 @@ public class EnemyLight : MonoBehaviour
                 eBar.alertCoolDown = 0;
                 eSpotScan.SetActive(false);
                 eSpotAttack.SetActive(true);
-                eBar.eAlertBar.SetActive(false);
+                //eBar.eAlertBar.SetActive(false);
             }
         }
     }
