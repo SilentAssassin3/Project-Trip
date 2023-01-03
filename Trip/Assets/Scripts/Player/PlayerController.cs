@@ -32,6 +32,9 @@ public class PlayerController : MonoBehaviour
     //Shooting Variables
     public bool canShoot = true;
 
+    //this is the angle from the player to the mouse
+    public float angle;
+
     public float bulletSpeed = 1000;
     public float fireRate = 1.0f;
     public float fireCooldown = 0;
@@ -74,11 +77,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        if (mousePos.x < 0)
+    
+        if (mousePos.x > transform.position.x)
         {
             mySprite.flipX = true;
         }
-        if (mousePos.x > 0)
+        if (mousePos.x < transform.position.x)
         {
             mySprite.flipX = false;
         }
@@ -182,7 +186,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //Movement system
+        //Movement system (This is replaced with the PlayerMovement Script, which just does the same thing)
         /*
         tempVelocity.x = Input.GetAxisRaw("Horizontal") * movementSpeed;
         tempVelocity.y = Input.GetAxisRaw("Vertical") * movementSpeed;
@@ -209,7 +213,7 @@ public class PlayerController : MonoBehaviour
     
     private void shoot(Vector2 direction)
     {
-        GameObject b = Instantiate(projectile, transform.position, transform.rotation);
+        GameObject b = Instantiate(projectile, transform.position, Quaternion.FromToRotation(transform.position,mousePos));
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), b.GetComponent<Collider2D>());
         b.GetComponent<Rigidbody2D>().velocity = direction * -bulletSpeed;
         Destroy(b, bulletLifetime);
@@ -225,10 +229,12 @@ public class PlayerController : MonoBehaviour
     {
         myRB.MovePosition(myRB.position + movement * moveSpeed * Time.fixedDeltaTime);
 
+        //To stop the player sprite from rotating this is being commented out
+        /*
         Vector2 lookDir = mousePos - myRB.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
         myRB.rotation = angle;
-
+        */
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -236,6 +242,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             health--;
+            damaged = true;
 
             //Player's health goes down, cooldown happens, player can take damage again
             if (damaged)
