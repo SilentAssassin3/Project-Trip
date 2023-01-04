@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public GameObject projectile;
     private Rigidbody2D myRB;
     private SpriteRenderer mySprite;
+    public Sprite[] spriteArray;
     //public GameObject Locked_Doors;
     public Camera cam;
 
@@ -86,7 +87,14 @@ public class PlayerController : MonoBehaviour
         {
             mySprite.flipX = false;
         }
-
+        if (mousePos.y > transform.position.y)
+        {
+            mySprite.sprite = spriteArray[1];
+        }
+        if (mousePos.y < transform.position.y)
+        {
+            mySprite.sprite = spriteArray[0];
+        }
 
         //Respawn system
         if (health <= 0)
