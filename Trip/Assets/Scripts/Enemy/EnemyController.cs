@@ -50,6 +50,7 @@ public class EnemyController : MonoBehaviour
         if (hitCoolDown >= hitTimer)
         {
             hitCoolDown = 0;
+            hit = false;
         }
     }
 

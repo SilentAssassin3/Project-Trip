@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D myRB;
     private SpriteRenderer mySprite;
     public Sprite[] spriteArray;
-    //public GameObject Locked_Doors;
+    public Rigidbody2D bulletRB;
+
     public Camera cam;
 
     private Vector2 mousePos;
@@ -72,13 +73,17 @@ public class PlayerController : MonoBehaviour
         mySprite = GetComponent<SpriteRenderer>();
         //If the MaxHealth is adjusted, then the Health will also be adjusted
         health = maxHealth;
+
+        bulletRB.rotation = 0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-    
+
+        angle = Mathf.Atan((mousePos.x-transform.position.x)/(mousePos.y-transform.position.y)) + 90;
+
         if (mousePos.x > transform.position.x)
         {
             mySprite.flipX = true;
@@ -221,7 +226,7 @@ public class PlayerController : MonoBehaviour
     
     private void shoot(Vector2 direction)
     {
-        GameObject b = Instantiate(projectile, transform.position, Quaternion.FromToRotation(transform.position,mousePos));
+        GameObject b = Instantiate(projectile, transform.position, Quaternion.identity);
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), b.GetComponent<Collider2D>());
         b.GetComponent<Rigidbody2D>().velocity = direction * -bulletSpeed;
         Destroy(b, bulletLifetime);
