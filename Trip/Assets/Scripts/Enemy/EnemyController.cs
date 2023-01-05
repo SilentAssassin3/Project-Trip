@@ -7,12 +7,16 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D  myRB;
 
     public GameObject ammo;
-    public GameObject money; 
+    public GameObject money;
+    public GameObject[] ammoList;
+    public GameObject[] moneyList;
+    public Vector3 moneyPos;
+    public Vector3 ammoPos;
 
     public bool deadAmmo = false;
 
     public bool hit = false;
-    public float hitTimer = 0.1f;
+    public float hitTimer = 0.2f;
     public float hitCoolDown = 0;
 
     public int health = 2;
@@ -37,6 +41,7 @@ public class EnemyController : MonoBehaviour
 
             GameObject m = Instantiate(money, transform.position, Quaternion.identity);
 
+            
             Destroy(gameObject);
         }
 
@@ -52,18 +57,35 @@ public class EnemyController : MonoBehaviour
             hitCoolDown = 0;
             hit = false;
         }
+
+        ammoList = GameObject.FindGameObjectsWithTag("Ammo");
+        moneyList = GameObject.FindGameObjectsWithTag("Money");
+
+        //Comparing all of the money gameobjects to see if they overlap with any of the ammo gameobjects, then moving the ammo up by 2
+        foreach (GameObject Money in moneyList)
+        {
+            moneyPos = Money.transform.position;
+        }
+
+        foreach (GameObject Ammo in ammoList)
+        {
+            if (Ammo.transform.position == moneyPos)
+            {
+                ammoPos = Ammo.transform.position;
+                ammoPos.y += 2;
+                Ammo.transform.position = ammoPos;
+            }
+        }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (collision.gameObject.tag == "Bullet" && hit == false)
         {
             Destroy(collision.gameObject);
             health--;
             hit = true;
         }
-
-
     }
 
 }

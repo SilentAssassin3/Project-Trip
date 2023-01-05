@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     private bool hasCheckPoint = false;
     public bool damaged = false;
     public float healthTimer = 0;
-    public float healthCooldownTime = 1.0f;
+    public float healthCooldownTime = 0.5f;
 
     //Movement
     public float movementSpeed = 7.5f;
@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
                 healthTimer += Time.deltaTime;
             }
 
-            else if (healthTimer >= healthCooldownTime)
+            if (healthTimer >= healthCooldownTime)
             {
                 healthTimer = 0;
                 damaged = false;
@@ -324,6 +324,7 @@ public class PlayerController : MonoBehaviour
             damaged = true;
         }
     }
+    
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Money")
