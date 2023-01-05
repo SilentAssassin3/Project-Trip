@@ -82,13 +82,39 @@ public class PlayerController : MonoBehaviour
     {
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
-        angle = Mathf.Atan((mousePos.x-transform.position.x)/(mousePos.y-transform.position.y)) + 90;
+        //angle is the bullet angle when shot
+        angle = Mathf.Atan((mousePos.y-transform.position.y)/(mousePos.x-transform.position.x))* Mathf.Rad2Deg;
+        //finding what quadrant the point is in
+        //if in one, no if statments activate
+        
+        if ((mousePos.y - transform.position.y) > 0 && (mousePos.x - transform.position.x) > 0)
+        {
+            //quadrant 1
+            angle = Mathf.Atan(Mathf.Abs((mousePos.y - transform.position.y) / (mousePos.x - transform.position.x)) ) * Mathf.Rad2Deg;
+        }
+        else if ((mousePos.y - transform.position.y) > 0 && (mousePos.x - transform.position.x) < 0)
+        {
+            //quadrant 2
+            angle = Mathf.Atan(Mathf.Abs((mousePos.x - transform.position.x) / (mousePos.y - transform.position.y))) * Mathf.Rad2Deg + 90;
+        }
+        else if ((mousePos.y - transform.position.y) < 0 && (mousePos.x - transform.position.x) < 0)
+        {
+            //quadrant 3
+            angle = Mathf.Atan(Mathf.Abs((mousePos.y - transform.position.y) / (mousePos.x - transform.position.x))) * Mathf.Rad2Deg + 180;
+        }
+        else if ((mousePos.y - transform.position.y) < 0 && (mousePos.x - transform.position.x) > 0)
+        {
+            //quadrant 4
+            angle = Mathf.Atan(Mathf.Abs((mousePos.x - transform.position.x) / (mousePos.y - transform.position.y))) * Mathf.Rad2Deg + 270;
+        }
+        //This is here becuase the sprite for the bullet is starting stright up and down and not sideways
+        angle += 90;
 
         if (mousePos.x > transform.position.x)
         {
             mySprite.flipX = true;
         }
-        if (mousePos.x < transform.position.x)
+        else if (mousePos.x < transform.position.x)
         {
             mySprite.flipX = false;
         }
@@ -96,7 +122,7 @@ public class PlayerController : MonoBehaviour
         {
             mySprite.sprite = spriteArray[1];
         }
-        if (mousePos.y < transform.position.y)
+        else if (mousePos.y < transform.position.y)
         {
             mySprite.sprite = spriteArray[0];
         }
@@ -113,6 +139,21 @@ public class PlayerController : MonoBehaviour
             {
                 transform.SetPositionAndRotation(Respawn, Quaternion.identity);
                 health = maxHealth;
+            }
+        }
+
+        //Player's health goes down, cooldown happens, player can take damage again (to make sure there is a buffer for the damage and the player doesn't die basically instantly)
+        if (damaged)
+        {
+            if (healthTimer < healthCooldownTime)
+            {
+                healthTimer += Time.deltaTime;
+            }
+
+            else if (healthTimer >= healthCooldownTime)
+            {
+                healthTimer = 0;
+                damaged = false;
             }
         }
 
@@ -168,7 +209,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        //PickUps CoolDowns (This will need to be changed)
+        /* PickUps CoolDowns (Becuase this game isn't using any of this, it isn't needed)
         if (speedBoostEnabled)
         {
             if (speedTimer < speedCooldownTime)
@@ -198,7 +239,8 @@ public class PlayerController : MonoBehaviour
                 fireRate /= fireRateAmplifer;
             }
         }
-
+        */
+        
         //Movement system (This is replaced with the PlayerMovement Script, which just does the same thing)
         /*
         tempVelocity.x = Input.GetAxisRaw("Horizontal") * movementSpeed;
@@ -226,7 +268,8 @@ public class PlayerController : MonoBehaviour
     
     private void shoot(Vector2 direction)
     {
-        GameObject b = Instantiate(projectile, transform.position, Quaternion.identity);
+        GameObject b = Instantiate(projectile, transform.position, Quaternion.Euler(0, 0, angle));
+        
         Physics2D.IgnoreCollision(GetComponent<Collider2D>(), b.GetComponent<Collider2D>());
         b.GetComponent<Rigidbody2D>().velocity = direction * -bulletSpeed;
         Destroy(b, bulletLifetime);
@@ -235,9 +278,9 @@ public class PlayerController : MonoBehaviour
     }
 
     
-    //Turning Player sprite towrds the mouse
+
  
-    //ians stuff
+    //ians stuff ()
     void FixedUpdate()
     {
         myRB.MovePosition(myRB.position + movement * moveSpeed * Time.fixedDeltaTime);
@@ -252,34 +295,35 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && damaged == false)
         {
             health--;
             damaged = true;
-
-            //Player's health goes down, cooldown happens, player can take damage again
-            if (damaged)
-            {
-                if (healthTimer < healthCooldownTime)
-                {
-                    healthTimer += Time.deltaTime;
-                }
-
-                else
-                {
-                    damaged = false;
-                    healthTimer = 0;
-                }
-            }
         }
 
-        if (collision.gameObject.tag == "eBullet")
+        if (collision.gameObject.tag == "eBullet" && damaged == false)
         {
             Destroy(collision.gameObject);
             health--;
+            damaged = true;
         }
     }
+    
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy" && damaged == false)
+        {
+            health--;
+            damaged = true;
+        }
 
+        if (collision.gameObject.tag == "eBullet" && damaged == false)
+        {
+            Destroy(collision.gameObject);
+            health--;
+            damaged = true;
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Money")
