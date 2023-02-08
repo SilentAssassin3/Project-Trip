@@ -11,7 +11,7 @@ public class EnemyHealthBar : MonoBehaviour
 
     //Alert Bar
     //public GameObject eAlertBar;
-   // public Image ealertBar;
+    //public Image ealertBar;
     public float alertTime = 0.5f;
     public float alertCoolDown = 0;
     public bool playerClose = false;
@@ -30,11 +30,12 @@ public class EnemyHealthBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Enemy.health < Enemy.maxHealth)
         {
            // eHealthBar.SetActive(true);
             //ehealthBar.fillAmount = Enemy.health / (float)Enemy.maxHealth;
         }
-
+        */
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    EnemyLight eLight;
+    public Vector3 direction;
     public Transform player;
     private Rigidbody2D rb;
     private Vector2 movement;
@@ -11,13 +13,17 @@ public class Enemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        eLight = FindObjectOfType<EnemyLight>();
         rb = this.GetComponent<Rigidbody2D>();  
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = player.position - transform.position;
+        if (eLight.eSpotScan == false)
+        {
+            direction = player.position - transform.position;
+        }
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         rb.rotation = angle;
         direction.Normalize();
@@ -27,8 +33,9 @@ public class Enemy : MonoBehaviour
     {
         movecharacter(movement);
     }
-    void movecharacter(Vector2 direction) {
+    public void movecharacter(Vector2 direction) 
+    {
         rb.MovePosition((Vector2)transform.position + (direction * moveSpeed * Time.deltaTime));
-}
+    }
 }
 

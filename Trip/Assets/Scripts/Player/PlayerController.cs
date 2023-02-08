@@ -1,19 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.U2D;
 public class PlayerController : MonoBehaviour
 {
-    //Getting the Rigidbody, Projectile
+    //Misilanious
     public GameObject projectile;
     private Rigidbody2D myRB;
     private SpriteRenderer mySprite;
     public Sprite[] spriteArray;
     public Rigidbody2D bulletRB;
-
     public Camera cam;
-
     private Vector2 mousePos;
+
+    //Light
+    public GameObject playerLight;
+    public Light2DBase Light2D;
+    public EnemyLight eLight;
+    public EnemyHealthBar eBar;
+    public GameObject eSpotScan;
+    public GameObject eSpotAttack;
 
     //Health
     public int health
@@ -34,7 +40,7 @@ public class PlayerController : MonoBehaviour
     //Shooting Variables
     public bool canShoot = true;
 
-    //this is the angle from the player to the mouse
+    //This is the angle from the player to the mouse
     public float angle;
 
     public float bulletSpeed = 1000;
@@ -71,8 +77,13 @@ public class PlayerController : MonoBehaviour
         //Showing that myRB is the players Rigidbody
         myRB = GetComponent<Rigidbody2D>();
         mySprite = GetComponent<SpriteRenderer>();
+
         //If the MaxHealth is adjusted, then the Health will also be adjusted
         health = maxHealth;
+
+        playerLight = GameObject.Find ("Player Light");
+        Light2D = playerLight.GetComponent<Light2DBase>();
+        eBar = FindObjectOfType<EnemyHealthBar>();
 
         bulletRB.rotation = 0f;
     }
@@ -80,6 +91,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
 
         //angle is the bullet angle when shot
@@ -324,7 +337,7 @@ public class PlayerController : MonoBehaviour
             damaged = true;
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Money")
@@ -337,6 +350,27 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collision.gameObject);
             ammoOnYou += ammoGain;
+        }
+
+        if (collision.gameObject.name == ("Enemy Spot Light Scan"))
+        {
+            eBar.playerClose = true;
+            while (eBar.playerClose)
+            {
+                //eBar.eAlertBar.SetActive(true);
+                while (eBar.alertCoolDown < eBar.alertTime)
+                {
+                    eBar.alertCoolDown += Time.deltaTime;
+                    //ealertBar.fillAmount = eBar.alertCoolDown / eBar.alertTime;
+                }
+            }
+            if (eBar.alertCoolDown >= eBar.alertTime)
+            {
+                eBar.alertCoolDown = 0;
+                eSpotScan.SetActive(false);
+                eSpotAttack.SetActive(true);
+                //eBar.eAlertBar.SetActive(false);
+            }
         }
     }
 
